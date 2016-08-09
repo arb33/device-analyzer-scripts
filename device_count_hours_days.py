@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+import gzip
 import sys
 import os
 import csv
@@ -27,20 +30,21 @@ global whdc_snapchat_tx
 global whlc_snapchat_rx
 global whlc_snapchat_tx
 
-fields = ('Entry','Num','Date','EntryType','Value')
-DARecord = namedtuple('DARecord', fields)
+fields_da = ('Entry','Num','Date','EntryType','Value')
+DARecord = namedtuple('DARecord', fields_da)
 def read_file(path):
-    with open(path, 'rU') as data:
+    with gzip.open(path, 'rU') as data:
         csv.field_size_limit(sys.maxsize)
         reader = csv.reader(data, delimiter=';')
         for row in map(DARecord._make, reader):
             yield row
 
-FileNameRecord = namedtuple('FileNameRecord', ('FileName'))
+fields_filename = ('i', 'FileName', 'Start', 'End', 'Days', 'PropData', 'InUK', 'OutUK', 'PropUK')
+FileNameRecord = namedtuple('FileNameRecord', fields_filename)
 def read_file_names(path):
     with open(path, 'rU') as data:
         csv.field_size_limit(sys.maxsize)
-        reader = csv.reader(data, delimiter='\n')
+        reader = csv.reader(data, delimiter=' ')
         for row in map(FileNameRecord._make, reader):
             yield row
 
@@ -178,7 +182,7 @@ if __name__ == '__main__':
 
     for file in read_file_names(pathOfIdsFile):
         fname = file.FileName
-        fullfpath = pathOfFiles + file.FileName + '.csv'
+        fullfpath = pathOfFiles + file.FileName + '.csv.gz'
         print("Parsing file: " + fname)
         app_ids = parse_app_names(fullfpath)
         if app_ids:
