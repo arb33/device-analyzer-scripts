@@ -34,10 +34,14 @@ fields_da = ('Entry','Num','Date','EntryType','Value')
 DARecord = namedtuple('DARecord', fields_da)
 def read_file(path):
     with gzip.open(path, 'rU') as data:
-        csv.field_size_limit(sys.maxsize)
-        reader = csv.reader(data, delimiter=';')
-        for row in map(DARecord._make, reader):
-            yield row
+        for line in data:
+            #Repack variable number of items per line into five expected items
+            #(Problem is internal DA format uses ';' to separate csv items as well
+            # as to separate app names inside the 'Value' field.)
+            e = line.split(';')
+            value = reduce(lambda x, y: x + ',' + y, e[4:])
+            repacked = e[0:4] + [value]
+            yield apply(DARecord._make, (repacked,))
 
 fields_filename = ('i', 'FileName', 'Start', 'End', 'Days', 'PropData', 'InUK', 'OutUK', 'PropUK')
 FileNameRecord = namedtuple('FileNameRecord', fields_filename)
