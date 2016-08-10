@@ -18,6 +18,7 @@ import gzip
 import sys
 import os
 import csv
+import io
 import glob
 from collections import namedtuple
 import dateutil.parser
@@ -47,15 +48,18 @@ global whlc_snapchat_tx
 fields_da = ('Entry','Num','Date','EntryType','Value')
 DARecord = namedtuple('DARecord', fields_da)
 def read_file(path):
-    with gzip.open(path, 'rU') as data:
-        for line in data:
-            #Repack variable number of items per line into five expected items
-            #(Problem is internal DA format uses ';' to separate csv items as well
-            # as to separate app names inside the 'Value' field.)
-            e = line.split(';')
-            value = reduce(lambda x, y: x + ',' + y, e[4:])
-            repacked = e[0:4] + [value]
-            yield apply(DARecord._make, (repacked,))
+    try:
+        with io.BufferedReader(gzip.open(path, 'rU')) as data:
+            for line in data:
+                #Repack variable number of items per line into five expected items
+                #(Problem is internal DA format uses ';' to separate csv items as well
+                # as to separate app names inside the 'Value' field.)
+                e = line.split(';')
+                value = reduce(lambda x, y: x + ',' + y, e[4:])
+                repacked = e[0:4] + [value]
+                yield apply(DARecord._make, (repacked,))
+    except:
+        print('Failed to read file: ' + path)
 
 fields_filename = ('i', 'FileName', 'Start', 'End', 'Days', 'PropData', 'InUK', 'OutUK', 'PropUK')
 FileNameRecord = namedtuple('FileNameRecord', fields_filename)
@@ -66,20 +70,7 @@ def read_file_names(path):
         for row in map(FileNameRecord._make, reader):
             yield row
 
-def parse_app_names(file):
-    apps_to_parse = ['com.facebook.katana', 'com.snapchat.android']
-    app_ids = {}
-    for row in read_file(file):
-        if row.EntryType.startswith('app|installed'):
-            for app_entry in row.Value.split(','):
-                temp_name =  app_entry.split('@')[0]
-                if temp_name in apps_to_parse:
-                    app_info = app_entry.split('@')[1].split(':')
-                    temp_app_id = app_info[len(app_info) - 2]
-                    app_ids[temp_app_id] = [None, None, temp_name]
-    return app_ids
-
-def count_hourly_app_data_logs(file, app_ids):
+def count_hourly_app_data_logs(file):
     global hdc_facebook_rx
     global hdc_facebook_tx
     global hlc_facebook_rx
@@ -112,6 +103,11 @@ def count_hourly_app_data_logs(file, app_ids):
     whc_snapchat_rx = np.zeros((7, 24))
     whc_snapchat_tx = np.zeros((7, 24))
 
+    logs_to_parse = ['net','app']
+    apps_to_parse = ['com.facebook.katana', 'com.snapchat.android']
+    current_app_name_id_mapping = {}
+    app_data = {}
+
     for row in read_file(file):
         row_entry_type = row.EntryType
         entry_val = row_entry_type.split('|')
@@ -119,40 +115,58 @@ def count_hourly_app_data_logs(file, app_ids):
         date_time = row_date.rsplit('T')
         row_value = row.Value
 
-        if row_date == '(invalid date)' or not row_entry_type.startswith('net|app') or entry_val[2] not in app_ids.keys():
+        if row_date == '(invalid date)' or entry_val[0] not in logs_to_parse:
             continue
 
-        app_id = entry_val[2]
-        weekday = dateutil.parser.parse(row_date).weekday()
-        hour = dateutil.parser.parse(row_date).hour
-        if entry_val[3] == 'rx_bytes':
-            last_rx = app_ids[app_id][0]
-            if last_rx != None and last_rx != row_value:
-                if 'facebook' in app_ids[app_id][2]:
-                    hc_facebook_rx[hour] = 1
-                    hlc_facebook_rx[hour] += 1
-                    whc_facebook_rx[weekday][hour] = 1
-                    whlc_facebook_rx[weekday][hour] += 1
-                else:
-                    hc_snapchat_rx[hour] = 1
-                    hlc_snapchat_rx[hour] += 1
-                    whc_snapchat_rx[weekday][hour] = 1
-                    whlc_snapchat_rx[weekday][hour] += 1
-            app_ids[app_id][0] = row_value
-        else:
-            last_tx = app_ids[app_id][1]
-            if last_tx != None and last_tx != row_value:
-                if 'facebook' in app_ids[app_id][2]:
-                    hc_facebook_tx[hour] = 1
-                    hlc_facebook_tx[hour] += 1
-                    whc_facebook_tx[weekday][hour] = 1
-                    whlc_facebook_tx[weekday][hour] += 1
-                else:
-                    hc_snapchat_tx[hour] = 1
-                    hlc_snapchat_tx[hour] += 1
-                    whc_snapchat_tx[weekday][hour] = 1
-                    whlc_snapchat_tx[weekday][hour] += 1
-            app_ids[app_id][1] = row_value
+        if row_entry_type.startswith('net|app'):
+            app_id = entry_val[2]
+            app_name = None
+            for key, val in current_app_name_id_mapping.items():
+                if val == app_id:
+                    app_name = key
+            if app_name == None:
+                continue
+
+            weekday = dateutil.parser.parse(row_date).weekday()
+            hour = dateutil.parser.parse(row_date).hour
+            if entry_val[3] == 'rx_bytes':
+                last_rx = app_data[app_name][0]
+                if last_rx != None and last_rx != row_value:
+                    if 'facebook' in app_data[app_name][2]:
+                        hc_facebook_rx[hour] = 1
+                        hlc_facebook_rx[hour] += 1
+                        whc_facebook_rx[weekday][hour] = 1
+                        whlc_facebook_rx[weekday][hour] += 1
+                    else:
+                        hc_snapchat_rx[hour] = 1
+                        hlc_snapchat_rx[hour] += 1
+                        whc_snapchat_rx[weekday][hour] = 1
+                        whlc_snapchat_rx[weekday][hour] += 1
+                app_data[app_name][0] = row_value
+            else:
+                last_tx = app_data[app_name][1]
+                if last_tx != None and last_tx != row_value:
+                    if 'facebook' in app_data[app_name][2]:
+                        hc_facebook_tx[hour] = 1
+                        hlc_facebook_tx[hour] += 1
+                        whc_facebook_tx[weekday][hour] = 1
+                        whlc_facebook_tx[weekday][hour] += 1
+                    else:
+                        hc_snapchat_tx[hour] = 1
+                        hlc_snapchat_tx[hour] += 1
+                        whc_snapchat_tx[weekday][hour] = 1
+                        whlc_snapchat_tx[weekday][hour] += 1
+                app_data[app_name][1] = row_value
+        elif row_entry_type.startswith('app|installed'):
+            for app_entry in row.Value.split(','):
+                temp_name =  app_entry.split('@')[0]
+                if temp_name in apps_to_parse:
+                    app_info = app_entry.split('@')[1].split(':')
+                    temp_app_id = app_info[len(app_info) - 2]
+                    if temp_name not in current_app_name_id_mapping:
+                        app_data[temp_name] = [None, None, temp_name]
+                    current_app_name_id_mapping[temp_name] = temp_app_id
+
 
     hdc_facebook_rx = [x + y for x, y in zip(hdc_facebook_rx, hc_facebook_rx)]
     hdc_facebook_tx = [x + y for x, y in zip(hdc_facebook_tx, hc_facebook_tx)]
@@ -202,9 +216,7 @@ if __name__ == '__main__':
         fname = file.FileName
         fullfpath = pathOfFiles + file.FileName + '.csv.gz'
         print("Parsing file: " + fname)
-        app_ids = parse_app_names(fullfpath)
-        if app_ids:
-            count_hourly_app_data_logs(fullfpath, app_ids)
+        count_hourly_app_data_logs(fullfpath)
 
     with open('out_device_count_hours_days.csv', 'w') as f:
         hourly_fb_output = ('HOURLY DEVICE COUNT FOR FACEBOOK RX: \n{0}\n'.format(hdc_facebook_rx)
