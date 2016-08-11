@@ -70,7 +70,27 @@ def read_file_names(path):
         for row in map(FileNameRecord._make, reader):
             yield row
 
-def count_hourly_app_data_logs(file):
+fields_lancs = ('Entry','Num','Date','EntryType','Value')
+DARecordLancs = namedtuple('DARecordLancs', fields_lancs)
+def read_file_lancs(path):
+    try:
+        with open(path, 'rU') as data:
+            csv.field_size_limit(sys.maxsize)
+            reader = csv.reader(data, delimiter=';')
+            for row in map(DARecord._make, reader):
+                yield row
+    except:
+        print('Failed to read file: ' + path)
+
+FileNameRecordLancs = namedtuple('FileNameRecordLancs', ('FileName'))
+def read_file_names_lancs(path):
+    with open(path, 'rU') as data:
+        csv.field_size_limit(sys.maxsize)
+        reader = csv.reader(data, delimiter='\n')
+        for row in map(FileNameRecordLancs._make, reader):
+            yield row
+
+def count_hourly_app_data_logs(file, lancs):
     global hdc_facebook_rx
     global hdc_facebook_tx
     global hlc_facebook_rx
@@ -108,7 +128,7 @@ def count_hourly_app_data_logs(file):
     current_app_name_id_mapping = {}
     app_data = {}
 
-    for row in read_file(file):
+    for row in (read_file_lancs(file) if lancs else read_file(file)):
         row_entry_type = row.EntryType
         entry_val = row_entry_type.split('|')
         row_date = row.Date
@@ -209,14 +229,17 @@ if __name__ == '__main__':
 
     pathOfIdsFile = sys.argv[1]
     pathOfFiles = sys.argv[2]
+    lancs = bool(len(sys.argv) > 3)
 
     startTime = datetime.now()
 
-    for file in read_file_names(pathOfIdsFile):
+    for file in (read_file_names_lancs(pathOfIdsFile) if lancs else read_file_names(pathOfIdsFile)):
         fname = file.FileName
-        fullfpath = pathOfFiles + file.FileName + '.csv.gz'
+        fullfpath = pathOfFiles + file.FileName + '.csv'
+        if not lancs:
+            fullfpath = fullfpath + '.gz'
         print("Parsing file: " + fname)
-        count_hourly_app_data_logs(fullfpath)
+        count_hourly_app_data_logs(fullfpath, lancs)
 
     with open('out_device_count_hours_days.csv', 'w') as f:
         hourly_fb_output = ('HOURLY DEVICE COUNT FOR FACEBOOK RX: \n{0}\n'.format(hdc_facebook_rx)
