@@ -346,7 +346,7 @@ com.sec.app.samsungprintservice;Samsung Print Service;Office
 com.sec.automation;Samsung Automation Process;Background Processes and Services
 com.sec.bcservice;Samsung BC Service;Background Processes and Services
 com.sec.chaton;ChatON;Communication
-com.sec.dsm.phone;Samsung DSM Phone;Background Processes and Services
+com.sec.dsm.phone;Samsung DSM Phone;SMS and Phone
 com.sec.dsm.system;Samsung DSM System;Background Processes and Services
 com.sec.enterprise.knox.attestation;Samsung Knox attestation;Background Processes and Services
 com.sec.enterprise.knox.cloudmdm.smdms;Samsung Knox Cloud;Storage, Backups and Transfers
@@ -363,7 +363,7 @@ com.sec.modem.settings;Samsung Modem Settings;Background Processes and Services
 com.sec.msc.nts.android.proxy;Samsung Proxy;Background Processes and Services
 com.sec.pcw;Samsung pcw;Background Processes and Services
 com.sec.pcw.device;Samsung pcw Device;Background Processes and Services
-com.sec.phone;Samsung Phone;Background Processes and Services
+com.sec.phone;Samsung Phone;SMS and Phone
 com.sec.smartcard.manager;Samsung Smartcard Manager;Background Processes and Services
 com.sec.spp.push;Samsung Push Service;SMS and Phone
 com.sec.tcpdumpservice;Samsung TCP Dump Service;Background Processes and Services
