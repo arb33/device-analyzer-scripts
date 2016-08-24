@@ -154,7 +154,7 @@ def parse_file(file, lancs):
                 elif int(row_value) < app_last_rx:
                     all_data_rx[current_hour].append(int(row_value))
                 last_app_data[app_id][0] = int(row_value)
-            else:
+            elif entry_val[3] == 'tx_bytes':
                 app_last_tx = last_app_data[app_id][1]
                 if app_last_tx == None:
                     pass
