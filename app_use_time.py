@@ -44,7 +44,8 @@ def read_file(path):
                 value = reduce(lambda x, y: x + ',' + y, e[4:])
                 repacked = e[0:4] + [value]
                 yield apply(DARecord._make, (repacked,))
-    except:
+    except Exception as ex:
+        print(ex)
         print('Failed to read file: ' + path)
 
 fields_filename = ('i', 'FileName', 'Start', 'End', 'Days', 'PropData', 'InUK', 'OutUK', 'PropUK')
@@ -65,7 +66,8 @@ def read_file_lancs(path):
             reader = csv.reader(data, delimiter=';')
             for row in map(DARecord._make, reader):
                 yield row
-    except:
+    except Exception as ex:
+        print(ex)
         print('Failed to read file: ' + path)
 
 FileNameRecordLancs = namedtuple('FileNameRecordLancs', ('FileName'))

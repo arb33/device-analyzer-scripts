@@ -1,0 +1,404 @@
+air.ITVMobilePlayer;ITV Hub;Watching
+air.uk.co.bbc.android.mediaplayer;BBC Media Player;Watching
+android;Android;Background Processes and Services
+android.googleSearch.googleSearchWidget;Google Search Widget;Searching and Wikis
+bbc.iplayer.android;BBC iPlayer;Watching
+bbc.mobile.news.uk;BBC News;News, Weather and Magazines
+bbc.mobile.weather;BBC Weather;News, Weather and Magazines
+com.LocalFota;Local Fota;Background Processes and Services
+com.adobe.flashplayer;Adobe Flash Player;Tools
+com.adobe.reader;Adobe Acrobat Reader;Office
+com.amazon.kindle;Amazon Kindle;Reading
+com.amazon.mShop.android.shopping;Amazon Shopping;Shopping
+com.amazon.mp3;Amazon Music with Prime Music;Listening
+com.android.apps.tag;Apps Tag;Background Processes and Services
+com.android.backupconfirm;Backup Confirm;Background Processes and Services
+com.android.bluetooth;Bluetooth;Background Processes and Services
+com.android.bluetoothmidiservice;Bluetooth Service;Background Processes and Services
+com.android.browser;Android Browser;Browsers
+com.android.browser.provider;Android Browser Provider;Browsers
+com.android.calculator2;Calculator;Office
+com.android.calendar;Calendar;Office
+com.android.captiveportallogin;Captive Portal Login;Background Processes and Services
+com.android.carrierconfig;Carrier Config;Background Processes and Services
+com.android.cellbroadcastreceiver;Cell Broadcast Receiver;Background Processes and Services
+com.android.certinstaller;Cert Installer;Background Processes and Services
+com.android.chrome;Google Chrome;Browsers
+com.android.contacts;Contacts;Communication
+com.android.defcontainer;Def Contaner;Background Processes and Services
+com.android.deskclock;Clock;Tools
+com.android.dialer;Android Dialer;SMS and Phone
+com.android.documentsui;Documents;Office
+com.android.dreams.basic;Dreams Basic Screensaver;Background Processes and Services
+com.android.dreams.phototable;Dreams Phototable Screensaver;Background Processes and Services
+com.android.email;Email;Communication
+com.android.exchange;Exchange;Communication
+com.android.externalstorage;Android External Storage;Storage, Backups and Transfers
+com.android.facelock;FaceLock;Photography
+com.android.galaxy4;Galaxy 4;Background Processes and Services
+com.android.gallery3d;Android 3D Gallery;Photography
+com.android.htmlviewer;HTML Viewer;Browsers
+com.android.incallui;In Call UI;Background Processes and Services
+com.android.inputdevices;Input Devices;Background Processes and Services
+com.android.inputmethod.latin;Google Keyboard;Tools
+com.android.keychain;KeyChain;Background Processes and Services
+com.android.keyguard;Lock Screen;Background Processes and Services
+com.android.launcher;Launcher App;Background Processes and Services
+com.android.location.fused;Location;Background Processes and Services
+com.android.magicsmoke;Magic Smoke Live Wallpaper;Background Processes and Services
+com.android.managedprovisioning;Managed Provisioning;Background Processes and Services
+com.android.mms;SMS;SMS and Phone
+com.android.mms.service;SMS Service;SMS and Phone
+com.android.musicfx;MusicFX;Listening
+com.android.musicvis;MusicVis;Listening
+com.android.nfc;NFC;Background Processes and Services
+com.android.noisefield;Noise Field;Background Processes and Services
+com.android.onetimeinitializer;One Time Initializer;Background Processes and Services
+com.android.packageinstaller;Package Installer;Google Play Updates
+com.android.pacprocessor;PAC Processor;Background Processes and Services
+com.android.phasebeam;Phase Beam Live Wallpaper;Background Processes and Services
+com.android.phone;Android Phone;SMS and Phone
+com.android.printspooler;Print Spooler;Office
+com.android.providers.applications;Application Provider;Background Processes and Services
+com.android.providers.calendar;Calendar Provider;Office
+com.android.providers.calllogbackup;Call Log Backup Provider;Background Processes and Services
+com.android.providers.contacts;Contacts Provider;Communication
+com.android.providers.downloads;Android Download Provider;Google Play Updates
+com.android.providers.downloads.ui;Android Download Provider UI;Google Play Updates
+com.android.providers.drm;Drm Provider;Background Processes and Services
+com.android.providers.media;Media Provider;Background Processes and Services
+com.android.providers.partnerbookmarks;Partner Bookmarks Provider;Background Processes and Services
+com.android.providers.security;Android Security Provider;Security
+com.android.providers.settings;Settings Provider;Settings
+com.android.providers.telephony;SMS;SMS and Phone
+com.android.providers.userdictionary;Predictive Text;Background Processes and Services
+com.android.proxyhandler;Proxy Handler;Background Processes and Services
+com.android.server.telecom;Phone Calls;SMS and Phone
+com.android.settings;Settings;Settings
+com.android.sharedstoragebackup;Shared Storage Backup;Storage, Backups and Transfers
+com.android.shell;Shell;Background Processes and Services
+com.android.smspush;SMS Push;SMS and Phone
+com.android.soundrecorder;Sound Recorder;Office
+com.android.statementservice;Service Statement;Background Processes and Services
+com.android.stk;SIM Toolkit;Background Processes and Services
+com.android.systemui;System UI;Background Processes and Services
+com.android.vending;Vending;Background Processes and Services
+com.android.vpndialogs;VPN Service;Background Processes and Services
+com.android.wallpaper;Wallpaper;Background Processes and Services
+com.android.wallpaper.holospiral;Wallpaper Holospiral;Background Processes and Services
+com.android.wallpaper.livepicker;Wallpaper Livepicker;Background Processes and Services
+com.android.wallpapercropper;Wallpaper Cropper;Background Processes and Services
+com.channel4.ondemand;All 4;Watching
+com.citymapper.app.release;Citymapper;Navigation and Travel
+com.devhd.feedly;feedly: your Office newsfeed;News, Weather and Magazines
+com.dropbox.android;Dropbox;Storage, Backups and Transfers
+com.dsi.ant.plugins.antplus;ANT+ Plugins Service;Health and Fitness
+com.dsi.ant.server;ANT+ Plugins Service;Health and Fitness
+com.dsi.ant.service.socket;ANT+ Plugins Service;Health and Fitness
+com.ebay.mobile;eBay;Shopping
+com.eclipsim.gpsstatus2;GPS Status & Toolbox;Navigation and Travel
+com.estrongs.android.pop;ES File Explorer File Manager;Storage, Backups and Transfers
+com.evernote;Evernote;Office
+com.facebook.katana;Facebook;Social Media
+com.facebook.orca;Facebook Messenger;Communication
+com.farproc.wifi.analyzer;Wifi Analyzer;Analysers
+com.fmm.dm;FMM DM;Background Processes and Services
+com.fmm.ds;FMM DS;Background Processes and Services
+com.gd.mobicore.pa;Mobicore;Background Processes and Services
+com.google.android.GoogleCamera;Camera;Photography
+com.google.android.androidforwork;Android for Office;Office
+com.google.android.apps.adm;Android Device Manager;Tools
+com.google.android.apps.authenticator2;Google Authenticator;Tools
+com.google.android.apps.books;Google Play Books;Reading
+com.google.android.apps.chromecast.app;Google Cast;Watching
+com.google.android.apps.cloudprint;Cloud Print;Office
+com.google.android.apps.currents;Google Currents;News, Weather and Magazines
+com.google.android.apps.docs;Google Drive;Storage, Backups and Transfers
+com.google.android.apps.docs.editors.docs;Google Docs;Office
+com.google.android.apps.docs.editors.sheets;Google Sheets;Office
+com.google.android.apps.docs.editors.slides;Google Slides;Office
+com.google.android.apps.enterprise.dmagent;Google Apps Device Policy;Office
+com.google.android.apps.fitness;Google Fit;Health and Fitness
+com.google.android.apps.gcs;Google Connectivity Services;Tools
+com.google.android.apps.genie.geniewidget;Google News and Weather;News, Weather and Magazines
+com.google.android.apps.inbox;Inbox by Gmail;Communication
+com.google.android.apps.inputmethod.hindi;Google Indic Keyboard;Tools
+com.google.android.apps.magazines;Google Play Newsstand;News, Weather and Magazines
+com.google.android.apps.maps;Google Maps;Navigation and Travel
+com.google.android.apps.messaging;Google Messenger;Communication
+com.google.android.apps.photos;Google Photos;Photography
+com.google.android.apps.plus;Google+;Social Media
+com.google.android.apps.translate;Google Translate;Tools
+com.google.android.apps.unveil;Google Goggles;Searching and Wikis
+com.google.android.apps.uploader;Android Apps Uploader;Google Play Updates
+com.google.android.apps.walletnfcrel;Android Pay;Shopping
+com.google.android.backup;Android Backup;Storage, Backups and Transfers
+com.google.android.backuptransport;Android Backup Transport;Storage, Backups and Transfers
+com.google.android.calendar;Google Calendar;Office
+com.google.android.configupdater;Config Updater;Background Processes and Services
+com.google.android.contacts;Contacts;Communication
+com.google.android.deskclock;Clock;Tools
+com.google.android.dialer;Google Dialer;SMS and Phone
+com.google.android.ears;Sound Search for Google Play;Searching and Wikis
+com.google.android.email;Email;Communication
+com.google.android.feedback;Android Feedback;Background Processes and Services
+com.google.android.gallery3d;Google 3D Gallery;Photography
+com.google.android.gm;Gmail;Communication
+com.google.android.gm.exchange;Gmail;Communication
+com.google.android.gms;GMS;Background Processes and Services
+com.google.android.googlequicksearchbox;Google Quick Search Box;Searching and Wikis
+com.google.android.gsf;Google Services Framework;Background Processes and Services
+com.google.android.gsf.login;Google Services Framework Login;Background Processes and Services
+com.google.android.inputmethod.korean;Google Korean Input;Tools
+com.google.android.inputmethod.latin;Google Keyboard;Tools
+com.google.android.inputmethod.pinyin;Google Pinyin Input;Tools
+com.google.android.keep;Google Keep;Office
+com.google.android.launcher;Google Now Launcher;Tools
+com.google.android.location;Location;Background Processes and Services
+com.google.android.maps.mytracks;My Tracks;Navigation and Travel
+com.google.android.marvin.talkback;Google TalkBack;Tools
+com.google.android.music;Google Play Music;Listening
+com.google.android.onetimeinitializer;One Time Initializer;Background Processes and Services
+com.google.android.partnersetup;Partner Setup;Background Processes and Services
+com.google.android.play.games;Google Play Games;Gaming
+com.google.android.setupwizard;Setup Wizard;Background Processes and Services
+com.google.android.stardroid;Sky Map;Speciality
+com.google.android.street;Google Street View;Navigation and Travel
+com.google.android.syncadapters.bookmarks;Bookmarks Sync Adapter;Storage, Backups and Transfers
+com.google.android.syncadapters.calendar;Calendar Sync Adapter;Storage, Backups and Transfers
+com.google.android.syncadapters.contacts;Contacts Sync Adapter;Storage, Backups and Transfers
+com.google.android.tag;Android Tag;Background Processes and Services
+com.google.android.talk;Hangouts;Communication
+com.google.android.tts;Google Text-to-speech;Tools
+com.google.android.videos;Google Play Movies & TV;Watching
+com.google.android.voicesearch;Google Voice Search;Searching and Wikis
+com.google.android.webview;Android System WebView;Browsers
+com.google.android.youtube;YouTube;Watching
+com.google.earth;Google Earth;Navigation and Travel
+com.google.zxing.client.android;Barcode Scanner;Tools
+com.guardian;The Guardian;News, Weather and Magazines
+com.hp.android.printservice;HP Print Service Plugin;Office
+com.hutchison3g.planet3;Three;Tools
+com.imdb.mobile;IMDb Movies & TV;Watching
+com.instagram.android;Instagram;Social Media
+com.justeat.app.uk;JUST EAT;Speciality
+com.lifevibes.trimapp;LifeVibes;Photography
+com.linkedin.android;LinkedIn;Social Media
+com.microsoft.office.word;Microsoft Word;Office
+com.microsoft.skydrive;Microsoft OneDrive;Storage, Backups and Transfers
+com.mobeam.barcodeService;Beaming Service for Samsung;Tools
+com.monotype.android.font.chococooky;Chococooky Font;Background Processes and Services
+com.monotype.android.font.cooljazz;Cool Jazz Font;Background Processes and Services
+com.monotype.android.font.rosemary;Rosemary Font;Background Processes and Services
+com.monotype.android.font.samsungsans;Samsung Sans Font;Background Processes and Services
+com.mxtech.videoplayer.ad;MX Player;Watching
+com.netflix.mediaclient;Netflix;Watching
+com.osp.app.signin;OSP App Sign In;Background Processes and Services
+com.paypal.android.p2pmobile;PayPal;Shopping
+com.policydm;Samsung Security Policy Update;Security
+com.qualcomm.atfwd;Qualcomm atfwd;Background Processes and Services
+com.qualcomm.interfacepermissions;Qualcomm Interface Permissions;Background Processes and Services
+com.qualcomm.location;Qualcomm Location;Background Processes and Services
+com.qualcomm.qcom_qmi;Qualcomm QMI;Background Processes and Services
+com.qualcomm.qcrilmsgtunnel;Qualcomm qcrilmstunnel;Background Processes and Services
+com.qualcomm.shutdownlistner;Qualcomm Shutdown Listener;Background Processes and Services
+com.qualcomm.timeservice;Qualcomm Time Service;Background Processes and Services
+com.quickoffice.android;Quickoffice;Office
+com.rightmove.android;Rightmove;Speciality
+com.samsung.SMT;Samsung SMT;Background Processes and Services
+com.samsung.android.MtpApplication;Samsung MTP Application;Background Processes and Services
+com.samsung.android.allshare.service.fileshare;Samsung AllShare FileShare;Storage, Backups and Transfers
+com.samsung.android.allshare.service.mediashare;Samsung AllShare Media Share;Storage, Backups and Transfers
+com.samsung.android.app.FileShareClient;Samsung File Share Client;Storage, Backups and Transfers
+com.samsung.android.app.FileShareServer;Samsung File Share Server;Storage, Backups and Transfers
+com.samsung.android.app.accesscontrol;Samsung Access Control;Background Processes and Services
+com.samsung.android.app.assistantmenu;Samsung Assistant Menu;Background Processes and Services
+com.samsung.android.app.colorblind;Samsung Colorblind;Background Processes and Services
+com.samsung.android.app.divx;Samsung DivX Process;Background Processes and Services
+com.samsung.android.app.filterinstaller;Samsung Filter Installer;Background Processes and Services
+com.samsung.android.app.galaxyfinder;Samsung Galaxy Finder;Tools
+com.samsung.android.app.shareaccessibilitysettings;Samsung Shared Accessibility Settings;Settings
+com.samsung.android.app.watchmanagerstub;Samsung Watch Manager Stub;Background Processes and Services
+com.samsung.android.beaconmanager;Samsung Beacon Manager;Tools
+com.samsung.android.clipboarduiservice;Samsung Clipboard UI Service;Background Processes and Services
+com.samsung.android.mdm;Samsung Android Mobile Device Management;Background Processes and Services
+com.samsung.android.provider.filterprovider;Samsung Filter Provider;Background Processes and Services
+com.samsung.android.providers.context;Samsung Context Provider;Background Processes and Services
+com.samsung.android.scloud.auth;Samsung Cloud Authorisation;Storage, Backups and Transfers
+com.samsung.android.scloud.backup;Samsung Cloud Backup;Storage, Backups and Transfers
+com.samsung.android.scloud.proxy.calendar;Samsung SCloud Calendar Proxy;Storage, Backups and Transfers
+com.samsung.android.scloud.proxy.contacts;Samsung SCloud Contacts Proxy;Storage, Backups and Transfers
+com.samsung.android.scloud.proxy.sbrowser;Samsung SCloud Browser Proxy;Storage, Backups and Transfers
+com.samsung.android.scloud.quota;Samsung Cloud Quota;Storage, Backups and Transfers
+com.samsung.android.scloud.sync;Samsung Cloud Sync;Storage, Backups and Transfers
+com.samsung.android.sconnect;Samsung SConnect;Background Processes and Services
+com.samsung.android.sdk.spenv10;Samsung Pen SDK;Background Processes and Services
+com.samsung.android.securitylogagent;Samsung Security Log Agent;Security
+com.samsung.android.visualeffect.res;Samsung Visual Effect;Background Processes and Services
+com.samsung.clipboardsaveservice;Samsung Clipboard Save Service;Background Processes and Services
+com.samsung.everglades.video;Samsung Everglades Video;Watching
+com.samsung.groupcast;Samsung Group Cast;Background Processes and Services
+com.samsung.helphub;Samsung Help Hub;Background Processes and Services
+com.samsung.klmsagent;Samsung klms agent;Background Processes and Services
+com.samsung.knox.rcp.components;Samsung Knox RCP Components;Background Processes and Services
+com.samsung.music;Samsung Music;Listening
+com.samsung.pickuptutorial;Samsung Pick Up Tutorial;Background Processes and Services
+com.samsung.scrc.idi.server;Samsung SCRC IDI Server;Background Processes and Services
+com.samsung.sec.android.application.csc;Samsung CSC;Background Processes and Services
+com.samsung.shareshot;Samsung Shareshot;Photography
+com.sec.allsharecastplayer;Samsung AllShare Cast Player (Screen Mirroring);Tools
+com.sec.android.AutoPreconfig;Samsung Auto Preconfig;Background Processes and Services
+com.sec.android.Kies;Samsung Kies;Background Processes and Services
+com.sec.android.Preconfig;Samsung Preconfig;Background Processes and Services
+com.sec.android.RilServiceModeApp;Samsung RilServiceModeApp;Background Processes and Services
+com.sec.android.allshare.service.controlshare;Samsung Control Share;Storage, Backups and Transfers
+com.sec.android.allshare.service.fileshare;Samsung File Share;Storage, Backups and Transfers
+com.sec.android.allshare.service.mediashare;Samsung Media Share;Storage, Backups and Transfers
+com.sec.android.app.DataCreate;Samsung Data Create;Background Processes and Services
+com.sec.android.app.FileShareClient;Samsung File Client;Storage, Backups and Transfers
+com.sec.android.app.FileShareServer;Samsung File Server;Storage, Backups and Transfers
+com.sec.android.app.FlashBarService;Samsung Flash Bar Service;Background Processes and Services
+com.sec.android.app.SamsungContentsAgent;Samsung Contents Agent;Background Processes and Services
+com.sec.android.app.SecSetupWizard;Samsung Setup Wizard;Background Processes and Services
+com.sec.android.app.billing;Samsung Billing;Background Processes and Services
+com.sec.android.app.bluetoothtest;Samsung Bluetooth Test;Background Processes and Services
+com.sec.android.app.camera;Samsung Camera;Photography
+com.sec.android.app.chromecustomizations;Samsung Chrome Customisations;Background Processes and Services
+com.sec.android.app.clockpackage;Samsung Clock;Tools
+com.sec.android.app.controlpanel;Samsung Control Panel;Background Processes and Services
+com.sec.android.app.easylauncher;Samsung Easy Launcher;Background Processes and Services
+com.sec.android.app.factorykeystring;Samsung Factory Key String;Background Processes and Services
+com.sec.android.app.gamehub;Samsung Game Hub;Gaming
+com.sec.android.app.hwmoduletest;Samsung HW module Test;Background Processes and Services
+com.sec.android.app.launcher;Samsung App Launcher;Background Processes and Services
+com.sec.android.app.lcdtest;Samsung LCD Test;Background Processes and Services
+com.sec.android.app.mediasync;Samsung Media Sync process;Storage, Backups and Transfers
+com.sec.android.app.minimode.res;Samsung Mini Mode;Background Processes and Services
+com.sec.android.app.mobileprint;Samsung Mobile Print;Office
+com.sec.android.app.mt;Samsung Mobile Tracker;Tools
+com.sec.android.app.music;Samsung Music;Listening
+com.sec.android.app.myfiles;Samsung My Files;Tools
+com.sec.android.app.parser;Samsung Parser;Background Processes and Services
+com.sec.android.app.personalization;Samsung Personalization;Background Processes and Services
+com.sec.android.app.popupcalculator;Samsung Pop Up Calculator;Office
+com.sec.android.app.popupuireceiver;Samsung Pop Up UI Receiver;Background Processes and Services
+com.sec.android.app.ringtoneBR;Samsung Ringtone;Background Processes and Services
+com.sec.android.app.safetyassurance;Samsung Safety Assurance;Security
+com.sec.android.app.samsungapps;Samsung Apps;Background Processes and Services
+com.sec.android.app.samsungapps.una2;Samsung Apps UNA2;Background Processes and Services
+com.sec.android.app.sbrowser;Samsung Internet for Android;Browsers
+com.sec.android.app.selftestmode;Samsung Self Test Mode;Background Processes and Services
+com.sec.android.app.servicemodeapp;Samsung Service Mode;Background Processes and Services
+com.sec.android.app.shealth;S Health;Health and Fitness
+com.sec.android.app.sns3;Samsung SNS3;Background Processes and Services
+com.sec.android.app.snsimagecache;Samsung SNS Image Cache;Background Processes and Services
+com.sec.android.app.sysscope;Samsung SYS Scope;Background Processes and Services
+com.sec.android.app.videoplayer;Samsung Video Player;Watching
+com.sec.android.app.voicerecorder;Samsung Voice Recorder;Office
+com.sec.android.app.wallpaperchooser;Samsung Wallpaper Chooser;Background Processes and Services
+com.sec.android.app.wfdbroker;Samsung WFD Broker;Background Processes and Services
+com.sec.android.app.wlantest;Samsung WLAN Test;Background Processes and Services
+com.sec.android.band;Samsung Band;Background Processes and Services
+com.sec.android.cloudagent;Samsung Cloud Agent;Storage, Backups and Transfers
+com.sec.android.cloudagent.dropboxoobe;Samsung Cloud Agent dropboxoobe;Storage, Backups and Transfers
+com.sec.android.daemonapp;Samsung Daemon App;Background Processes and Services
+com.sec.android.diagmonagent;Samsung Diagmon Agent;Background Processes and Services
+com.sec.android.directconnect;Samsung Direct Connect;Background Processes and Services
+com.sec.android.directshare;Samsung Direct Share;Storage, Backups and Transfers
+com.sec.android.drmpopup;Samsung DRM Pop Up;Background Processes and Services
+com.sec.android.easysettings;Samsung Easy Settings;Settings
+com.sec.android.fotaclient;Samsung Fota Client;Background Processes and Services
+com.sec.android.fwupgrade;Samsung FW Upgrade;Background Processes and Services
+com.sec.android.gallery3d;Samsung 3D Gallery;Photography
+com.sec.android.iap;Samsung IAP;Background Processes and Services
+com.sec.android.inputmethod;Samsung Input Method;Background Processes and Services
+com.sec.android.mimage.photoretouching;Samsung Photo Re-touching;Photography
+com.sec.android.mmapp;Samsung MMAP;Background Processes and Services
+com.sec.android.motions.settings.panningtutorial;Samsung Panning Tutorial;Background Processes and Services
+com.sec.android.nearby.mediaserver;Samsung Media Server;Storage, Backups and Transfers
+com.sec.android.omc;Samsung OMC;Background Processes and Services
+com.sec.android.pagebuddynotisvc;Samsung Page Buddy;Background Processes and Services
+com.sec.android.preloadinstaller;Samsung Pre-load Installer;Google Play Updates
+com.sec.android.provider.badge;Samsung Badge Provider;Background Processes and Services
+com.sec.android.provider.logsprovider;Samsung Logs Provider;Background Processes and Services
+com.sec.android.providers.downloads;Samsung Downloads Provider;Google Play Updates
+com.sec.android.providers.security;Samsung Security Provider;Security
+com.sec.android.providers.tasks;Samsung Tasks Provider;Background Processes and Services
+com.sec.android.sCloudBackupApp;Samsung Cloud Backup;Storage, Backups and Transfers
+com.sec.android.sCloudBackupProvider;Samsung Cloud Backup Provider;Storage, Backups and Transfers
+com.sec.android.sCloudRelayData;Samsung Cloud Relay Data;Storage, Backups and Transfers
+com.sec.android.sCloudSync;Samsung Cloud Sync;Storage, Backups and Transfers
+com.sec.android.sCloudSyncCalendar;Samsung Cloud Calendar Sync;Storage, Backups and Transfers
+com.sec.android.sCloudSyncContacts;Samsung Cloud Contacts Sync;Storage, Backups and Transfers
+com.sec.android.service.cm;Samsung CM service;Background Processes and Services
+com.sec.android.service.health;Samsung Health Service;Health and Fitness
+com.sec.android.service.sm;Samsung SM service;Background Processes and Services
+com.sec.android.widgetapp.SPlannerAppWidget;Samsung Planner Widget;Office
+com.sec.android.widgetapp.activeapplicationwidget;Samsung Active App Widget;Background Processes and Services
+com.sec.android.widgetapp.ap.hero.accuweather;Samsung Weather Widget;News, Weather and Magazines
+com.sec.android.widgetapp.ap.yahoonews;Samsung Yahoo News Widget;News, Weather and Magazines
+com.sec.android.widgetapp.ap.yahoostock.stockclock;Samsung Yahoo Stock Clock;News, Weather and Magazines
+com.sec.android.widgetapp.digitalclock;Samsung Digital Clock;Tools
+com.sec.android.widgetapp.dualclockdigital;Samsung Dual Digital Clock;Tools
+com.sec.android.widgetapp.webmanual;Samsung Web Manual Widget;Background Processes and Services
+com.sec.app.RilErrorNotifier;Samsung Error Notifier;Background Processes and Services
+com.sec.app.samsungprintservice;Samsung Print Service;Office
+com.sec.automation;Samsung Automation Process;Background Processes and Services
+com.sec.bcservice;Samsung BC Service;Background Processes and Services
+com.sec.chaton;ChatON;Communication
+com.sec.dsm.phone;Samsung DSM Phone;SMS and Phone
+com.sec.dsm.system;Samsung DSM System;Background Processes and Services
+com.sec.enterprise.knox.attestation;Samsung Knox attestation;Background Processes and Services
+com.sec.enterprise.knox.cloudmdm.smdms;Samsung Knox Cloud;Storage, Backups and Transfers
+com.sec.enterprise.mdm.services.simpin;Samsung Sim Pin Service;Background Processes and Services
+com.sec.enterprise.mdm.vpn;Samsung VPN Service;Background Processes and Services
+com.sec.enterprise.permissions;Samsung Permissions;Background Processes and Services
+com.sec.esdk.elm;Samsung esdk elm;Background Processes and Services
+com.sec.factory;Samsung Factory;Background Processes and Services
+com.sec.factory.camera;Samsung Camera Factory;Photography
+com.sec.hearingadjust;Samsung Hearing Adjust;Tools
+com.sec.knox.bridge;Samsung Knox Bridge;Background Processes and Services
+com.sec.knox.knoxsetupwizardclient;Samsung Knox Setup Wizard Client;Background Processes and Services
+com.sec.modem.settings;Samsung Modem Settings;Background Processes and Services
+com.sec.msc.nts.android.proxy;Samsung Proxy;Background Processes and Services
+com.sec.pcw;Samsung pcw;Background Processes and Services
+com.sec.pcw.device;Samsung pcw Device;Background Processes and Services
+com.sec.phone;Samsung Phone;SMS and Phone
+com.sec.smartcard.manager;Samsung Smartcard Manager;Background Processes and Services
+com.sec.spp.push;Samsung Push Service;SMS and Phone
+com.sec.tcpdumpservice;Samsung TCP Dump Service;Background Processes and Services
+com.sec.usbsettings;Samsung USB Settings;Settings
+com.shazam.android;Shazam;Listening
+com.skype.raider;Skype;Communication
+com.smlds;SMLDS;Background Processes and Services
+com.snapchat.android;Snapchat;Communication
+com.spotify.music;Spotify;Listening
+com.svox.pico;SVOX Pico Text-to-Speech;Tools
+com.thetrainline;Trainline;Navigation and Travel
+com.touchtype.swiftkey;Swiftkey Keyboard;Tools
+com.tripadvisor.tripadvisor;TripAdvisor;Navigation and Travel
+com.twitter.android;Twitter;Social Media
+com.ubercab;Uber;Navigation and Travel
+com.viber.voip;Viber;Communication
+com.visionobjects.resourcemanager;Vision Objects Resource Manager;Background Processes and Services
+com.visualit.tubeLondonCity;Tube Map London Underground;Navigation and Travel
+com.vlingo.midas;Vlingo Voice Recognition;Tools
+com.waze;Waze - GPS, Maps & Traffic;Navigation and Travel
+com.whatsapp;WhatsApp;Communication
+com.wsomacp;WSOMACP;Background Processes and Services
+com.wssnps;WSSNPS;Background Processes and Services
+com.wssyncmldm;WSSYNCNLDM;Background Processes and Services
+flipboard.app;Flipboard;News, Weather and Magazines
+jp.co.omronsoft.iwnnime.ml;Japanese IME;Tools
+org.mozilla.firefox;Firefox Browser;Browsers
+org.simalliance.openmobileapi.service;SIMalliance Open Mobile API;Security
+org.videolan.vlc.betav7neon;VLC for Android beta;Watching
+org.wikipedia;Wikipedia;Searching and Wikis
+org.zwanoo.android.speedtest;Speedtest.net;Analysers
+tunein.player;TuneIn Radio;Listening
+uk.ac.cam.deviceanalyzer;Device Analyzer;Analysers
+uk.amazon.mShop.android;Amazon Shopping;Shopping
+uk.co.bbc.android.iplayerradio;BBC iPlayer Radio;Listening
+uk.co.bbc.android.sportdomestic;BBC Sport;News, Weather and Magazines
+uk.co.nationalrail.google;National Rail Enquiries;Navigation and Travel
+uk.gov.metoffice.android;Met Office Weather;News, Weather and Magazines
