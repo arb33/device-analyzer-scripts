@@ -197,11 +197,12 @@ def parse_file(file, lancs):
         # PHONE CALLS
         elif row_entry_type.startswith('phone'):
             currentPhoneState = row_entry_type.split('|')[1]
-            if last_phone_state == 'offhook':
+            if last_phone_state == 'offhook' and (currentPhoneState == 'idle' or currentPhoneState == 'calling' or currentPhoneState == 'ringing'):
                 phone_call_hour = int((last_phone_datetime.rsplit('T')[1]).split(':')[0])
                 phone_calls[phone_call_hour].append(get_t_gap(last_phone_datetime,row_date))
-            last_phone_state = currentPhoneState
-            last_phone_datetime = row_date
+            if currentPhoneState == 'offhook' or currentPhoneState == 'idle' or currentPhoneState == 'calling' or currentPhoneState == 'ringing':
+                last_phone_state = currentPhoneState
+                last_phone_datetime = row_date
 
     if no_of_days != 0:
         # Append this device's hourly app data to overall data
