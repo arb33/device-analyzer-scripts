@@ -106,6 +106,7 @@ def parse_file(file, lancs):
     current_day = None
     no_of_days = 0
 
+    ids_names = {}
     current_app_name_id_mapping = {}
     app_data = {}
 
@@ -136,7 +137,6 @@ def parse_file(file, lancs):
                     app_name = key
             if app_name == None:
                 continue
-                # app_name = 'Other'
 
             if entry_val[3] == 'rx_bytes':
                 app_last_rx = app_data[app_name][0]
@@ -165,6 +165,16 @@ def parse_file(file, lancs):
                     temp_app_id = app_info[len(app_info) - 2]
                     if temp_name not in current_app_name_id_mapping:
                         app_data[temp_name] = [None, [[] for x in range(0,24)], None, [[] for x in range(0,24)]]
+
+                    # Remove old mapping if it exists
+                    if temp_app_id not in ids_names:
+                        ids_names[temp_app_id] = temp_name
+                    elif ids_names[temp_app_id] != temp_name:
+                        for key, val in current_app_name_id_mapping.items():
+                            if val == temp_app_id and key != temp_name:
+                                current_app_name_id_mapping[key] = ''
+                        ids_names[temp_app_id] = temp_name
+
                     current_app_name_id_mapping[temp_name] = temp_app_id
 
 
