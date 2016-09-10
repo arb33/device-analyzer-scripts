@@ -119,6 +119,7 @@ def parse_file(file, lancs):
     current_day = None
     no_of_days = 0
 
+    ids_names = {}
     current_app_name_id_mapping = {}
     app_data = {}
     # app_data['Other'] = [None, [[] for x in range(0,24)], None, [[] for x in range(0,24)]]
@@ -179,6 +180,14 @@ def parse_file(file, lancs):
                     temp_app_id = app_info[len(app_info) - 2]
                     if temp_name not in current_app_name_id_mapping:
                         app_data[temp_name] = [None, [[] for x in range(0,24)], None, [[] for x in range(0,24)]]
+                    # Remove old mapping if it exists
+                    if temp_app_id not in ids_names:
+                        ids_names[temp_app_id] = temp_name
+                    elif ids_names[temp_app_id] != temp_name:
+                        for key, val in current_app_name_id_mapping.items():
+                            if val == temp_app_id and key != temp_name:
+                                current_app_name_id_mapping[key] = ''
+                        ids_names[temp_app_id] = temp_name
                     current_app_name_id_mapping[temp_name] = temp_app_id
         # SMS
         elif row_entry_type.startswith('sms') and entry_val[1] == 'count':
@@ -197,11 +206,12 @@ def parse_file(file, lancs):
         # PHONE CALLS
         elif row_entry_type.startswith('phone'):
             currentPhoneState = row_entry_type.split('|')[1]
-            if last_phone_state == 'offhook':
+            if last_phone_state == 'offhook' and (currentPhoneState == 'idle' or currentPhoneState == 'calling' or currentPhoneState == 'ringing'):
                 phone_call_hour = int((last_phone_datetime.rsplit('T')[1]).split(':')[0])
                 phone_calls[phone_call_hour].append(get_t_gap(last_phone_datetime,row_date))
-            last_phone_state = currentPhoneState
-            last_phone_datetime = row_date
+            if currentPhoneState == 'offhook' or currentPhoneState == 'idle' or currentPhoneState == 'calling' or currentPhoneState == 'ringing':
+                last_phone_state = currentPhoneState
+                last_phone_datetime = row_date
 
     if no_of_days != 0:
         # Append this device's hourly app data to overall data
