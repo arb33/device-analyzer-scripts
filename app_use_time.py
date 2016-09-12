@@ -21,7 +21,7 @@ import csv
 import io
 import glob
 import numpy as np
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 import dateutil.parser
 from datetime import datetime, timedelta
 
@@ -78,11 +78,11 @@ def read_file_names_lancs(path):
         for row in map(FileNameRecordLancs._make, reader):
             yield row
 
-AppRecord = namedtuple('AppRecord', ('FullName'))
+AppRecord = namedtuple('AppRecord', ('FullName', 'Name', 'Practice'))
 def read_app_mapping(path):
     with open(path, 'rU') as data:
         csv.field_size_limit(sys.maxsize)
-        reader = csv.reader(data, delimiter=',')
+        reader = csv.reader(data, delimiter=';')
         for row in map(AppRecord._make, reader):
             yield row
 
@@ -124,7 +124,7 @@ def parse_file(file, lancs):
         entry_val = row_entry_type.split('|')
         row_date = row.Date
         date_time = row_date.rsplit('T')
-        row_value = row.Value
+        row_value = row.Value.strip()
 
         if entry_val[0] not in logs_to_parse or row_date == '(invalid date)':
             continue
@@ -205,9 +205,20 @@ def parse_file(file, lancs):
         if not all(i == 0 for i in mean_hourly_device_use_instances):
             [devices_use_instances[i].append(mean_hourly_device_use_instances[i]) for i in range(0,24)]
 
+def get_practice_name(app):
+    global apps
+    for key, val in apps.items():
+        if key == app:
+            return val
+    print('App {0} not found'.format(app))
+    return
+
 def calculate_print_app_foreground():
     global devices_apps_foreground_use
     global devices_apps_foreground_other
+
+    practices_foreground = OrderedDict()
+    practices_other = OrderedDict()
 
     # App foregound use summary
     for app, data in devices_apps_foreground_use.items():
@@ -233,6 +244,11 @@ def calculate_print_app_foreground():
         with open('use_out/app_use_meds_hourly.csv', 'a') as f:
             f.write('{0};{1}\n'.format(app, med_i))
 
+        practice = get_practice_name(app)
+        if practice not in practices_foreground:
+            practices_foreground[practice]  = [[] for i in range(0,24)]
+        [practices_foreground[practice][i].append(mean_i[i]) for i in range(0,24)]
+
     # App foregound other summary
     for app, data in devices_apps_foreground_other.items():
         total_i = [0 if not hour else sum(hour) for hour in data]
@@ -256,6 +272,40 @@ def calculate_print_app_foreground():
             f.write('{0};{1}\n'.format(app, max_i))
         with open('use_out/app_other_meds_hourly.csv', 'a') as f:
             f.write('{0};{1}\n'.format(app, med_i))
+
+        practice = get_practice_name(app)
+        if practice not in practices_other:
+            practices_other[practice]  = [[] for i in range(0,24)]
+        [practices_other[practice][i].append(mean_i[i]) for i in range(0,24)]
+
+    with open('use_out/practice_hourly_use_summaries_foreground.csv', 'w') as f:
+        f.write('hour')
+        for i in range(0,24):
+            f.write(',{0}'.format(i))
+        f.write('\n')
+
+    with open('use_out/practice_hourly_use_summaries_other.csv', 'w') as f:
+        f.write('hour')
+        for i in range(0,24):
+            f.write(',{0}'.format(i))
+        f.write('\n')
+
+    # PRACTICE SUMMARY
+    for practice, data in practices_foreground.items():
+        total_foreground_use = [0 if not hour else sum(hour) for hour in data]
+        with open('use_out/practice_hourly_use_summaries_foreground.csv', 'a') as f:
+            f.write('"{0}"'.format(practice))
+            for i in range(0,24):
+                f.write(',{0}'.format(total_foreground_use[i]))
+            f.write('\n')
+
+    for practice, data in practices_other.items():
+        total_other_use = [0 if not hour else sum(hour) for hour in data]
+        with open('use_out/practice_hourly_use_summaries_other.csv', 'a') as f:
+            f.write('"{0}"'.format(practice))
+            for i in range(0,24):
+                f.write(',{0}'.format(total_other_use[i]))
+            f.write('\n')
 
 def calculate_print_device_use():
     global devices_use_durations
@@ -300,7 +350,7 @@ if __name__ == '__main__':
     devices_apps_foreground_use = {}
     devices_apps_foreground_other = {}
     for app in read_app_mapping(pathOfAppMappingFile):
-        apps[app.FullName] = ''
+        apps[app.FullName] = app.Practice
 
     devices_use_durations = [[] for x in range(0,24)]
     devices_use_instances = [[] for x in range(0,24)]

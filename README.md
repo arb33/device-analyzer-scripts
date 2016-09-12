@@ -16,11 +16,11 @@ Output files:
 
 app_use_time.py
 Description:
-Outputs totals, means, no. of devices, mins, maxs and medians of devices hourly averages for foreground app instances whilst the screen is on and unlocked or other. It also outputs the same calculations for devices hourly averages of use durations and no. of uses, i.e. time screen was on.
+Outputs totals, means, no. of devices, mins, maxs and medians of devices hourly averages for foreground app instances whilst the screen is on and unlocked or other. It also outputs the same calculations for devices hourly averages of use durations and no. of uses, i.e. time screen was on. App use is also summarised into practice use for both foreground app instances whilst the screen is on and unlocked or other
 Args:
 1. Device ids csv file
 2. Path of device files
-3. app-greater50-installs-on-devices-at-least-14-days.csv
+3. Greater50InstallsApps.csv
 Output files:
 1. use_out/device_use_hourly.csv
 2. use_out/app_foreground_use_hourly.csv
@@ -37,6 +37,8 @@ Output files:
 13. use_out/app_other_mins_hourly.csv
 14. use_out/app_other_maxs_hourly.csv
 15. use_out/app_other_meds_hourly.csv
+16. use_out/practice_hourly_use_summaries_foreground.csv
+17. use_out/practice_hourly_use_summaries_other.csv
 
 
 data_sms_phonecalls.py
