@@ -105,7 +105,7 @@ def parse_file(file, lancs):
         entry_val = row_entry_type.split('|')
         row_date = row.Date
         date_time = row_date.rsplit('T')
-        row_value = row.Value
+        row_value = row.Value.strip()
 
         if entry_val[0] not in logs_to_parse or row_date == '(invalid date)':
             continue
