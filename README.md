@@ -1,4 +1,4 @@
-all_data_foreground.py
+all_data_foreground.py (**** No longer required ****)
 Description:
 Outputs totals, means, no. of devices, mins, maxs and medians of devices hourly averages for all app foreground instances and all data demand rx and tx.
 Args:
@@ -59,6 +59,28 @@ Output files:
 8. out/app_hourly_maxs.csv
 9. out/app_hourly_meds.csv
 
+
+overall_summary.py
+Description:
+Helps give an idea of what percentage of the dataset we're representing overall and per category with the Cambridge app list (apps installed on 50 devices or more).
+Outputs the number of devices that contribute to: overall data, overall demand of categories, overall use of categories, demand of each category and use of each category (contribution, practice_demand_contribution, practice_use_contribution).
+Also outputs hourly data summed for devices and categories (all_practice_data, all_practice_rx, all_practice_tx, all_practice_use).
+Also outputs daily data summed for devices and categories with percentages (daily_practice_data, daily_practice_use).
+Args:
+1. Device ids csv file
+2. Path of device files
+3. Greater50InstallsApps.csv
+Output files:
+1. overall_summary/all_practice_data.csv
+2. overall_summary/all_practice_rx.csv
+3. overall_summary/all_practice_tx.csv
+4. overall_summary/all_practice_use.csv
+5. overall_summary/all_totals.csv
+6. overall_summary/contribution.csv
+7. overall_summary/practice_demand_contribution.csv
+8. overall_summary/practice_use_contribution.csv
+9. overall_summary/daily_practice_data.csv
+10. overall_summary/daily_practice_use.csv
 
 practice_data_demand.py
 Description:
