@@ -136,7 +136,7 @@ def parse_file(file, lancs):
         current_hour = int(date_time[1].split(':')[0])
 
         # An app is in the foreground so log its process id
-        if 'importance' in entry_val and row_value == 'foreground':
+        if 'importance' in entry_val and 'foreground' in row_value:
             last_importance_app_pid = entry_val[1]
 
         # Get the name of the app currently in the foreground
@@ -160,7 +160,7 @@ def parse_file(file, lancs):
 
         # Screen locked/unlocked
         elif row_entry_type.startswith('hf|locked'):
-            if row_value == 'true':
+            if 'true' in row_value:
                 screen_unlocked = False
             else:
                 screen_unlocked = True
