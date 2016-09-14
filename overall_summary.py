@@ -206,22 +206,24 @@ def parse_file(file, lancs, fname):
         # App installed logs
         elif row_entry_type.startswith('app|installed'):
             for app_entry in row_value.split(','):
-                temp_name =  app_entry.split('@')[0]
-                app_info = app_entry.split('@')[1].split(':')
-                temp_app_id = app_info[len(app_info) - 2]
-                if temp_name not in current_app_name_id_mapping:
-                    app_data[temp_name] = [None, [[] for x in range(0,24)], None, [[] for x in range(0,24)]]
+                installed_details = app_entry.split('@')
+                if len(installed_details) > 1:
+                    temp_name = installed_details[0]
+                    app_info = installed_details[1].split(':')
+                    temp_app_id = app_info[len(app_info) - 2]
+                    if temp_name not in current_app_name_id_mapping:
+                        app_data[temp_name] = [None, [[] for x in range(0,24)], None, [[] for x in range(0,24)]]
 
-                # Remove old mapping if it exists
-                if temp_app_id not in ids_names:
-                    ids_names[temp_app_id] = temp_name
-                elif ids_names[temp_app_id] != temp_name:
-                    for key, val in current_app_name_id_mapping.items():
-                        if val == temp_app_id and key != temp_name:
-                            current_app_name_id_mapping[key] = ''
-                    ids_names[temp_app_id] = temp_name
+                    # Remove old mapping if it exists
+                    if temp_app_id not in ids_names:
+                        ids_names[temp_app_id] = temp_name
+                    elif ids_names[temp_app_id] != temp_name:
+                        for key, val in current_app_name_id_mapping.items():
+                            if val == temp_app_id and key != temp_name:
+                                current_app_name_id_mapping[key] = ''
+                        ids_names[temp_app_id] = temp_name
 
-                current_app_name_id_mapping[temp_name] = temp_app_id
+                    current_app_name_id_mapping[temp_name] = temp_app_id
 
 
     if no_of_days != 0:
