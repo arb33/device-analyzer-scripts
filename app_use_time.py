@@ -142,19 +142,22 @@ def parse_file(file, lancs):
         # Get the name of the app currently in the foreground
         elif 'app' in entry_val and 'name' in entry_val and last_importance_app_pid != None:
 
+            #row_value contains "<app name>:<play store group>" so retrieve just app name:
+            app_name = row_value.split(":")[0]
+
             # The app pids for the app importance and app name logs don't match, so ignore it
-            if row_value in apps and entry_val[1] == last_importance_app_pid:
+            if app_name in apps and entry_val[1] == last_importance_app_pid:
                 # The user is using the device
                 if screen_on and screen_unlocked:
                     # Increment the number of times it was in the foreground
-                    if row_value not in app_foreground_use:
-                        app_foreground_use[row_value] = [0 for x in range(0,24)]
-                    app_foreground_use[row_value][current_hour]+=1
+                    if app_name not in app_foreground_use:
+                        app_foreground_use[app_name] = [0 for x in range(0,24)]
+                    app_foreground_use[app_name][current_hour]+=1
                 # Otherwise log the foreground instance in the app_foreground_other list
                 else:
-                    if row_value not in app_foreground_other:
-                        app_foreground_other[row_value] = [0 for x in range(0,24)]
-                    app_foreground_other[row_value][current_hour]+=1
+                    if app_name not in app_foreground_other:
+                        app_foreground_other[app_name] = [0 for x in range(0,24)]
+                    app_foreground_other[app_name][current_hour]+=1
 
             last_importance_app_pid = None
 
