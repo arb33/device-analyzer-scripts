@@ -149,23 +149,27 @@ def parse_file(file, lancs, fname):
         current_hour = int(date_time[1].split(':')[0])
 
         # An app is in the foreground so log its process id
-        if 'importance' in entry_val and row_value == 'foreground':
+        if 'importance' in entry_val and 'foreground' in row_value:
             last_importance_app_pid = entry_val[1]
         # Get the name of the app currently in the foreground
         elif 'app' in entry_val and 'name' in entry_val and last_importance_app_pid != None:
+
+            #row_value contains "<app name>:<play store group>" so retrieve just app name:
+            app_name = row_value.split(":")[0]
+
             # The app pids for the app importance and app name logs don't match, so ignore it
             if entry_val[1] == last_importance_app_pid:
                 # The user is using the device
                 if screen_on and screen_unlocked:
                     # Increment the number of times it was in the foreground
-                    if row_value not in app_foreground_use:
-                        app_foreground_use[row_value] = [0 for x in range(0,24)]
-                    app_foreground_use[row_value][current_hour]+=1
+                    if app_name not in app_foreground_use:
+                        app_foreground_use[app_name] = [0 for x in range(0,24)]
+                    app_foreground_use[app_name][current_hour]+=1
 
             last_importance_app_pid = None
         # Screen locked/unlocked
         elif row_entry_type.startswith('hf|locked'):
-            if row_value == 'true':
+            if 'true' in row_value:
                 screen_unlocked = False
             else:
                 screen_unlocked = True
