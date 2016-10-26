@@ -82,6 +82,27 @@ Output files:
 9. overall_summary/daily_practice_data.csv
 10. overall_summary/daily_practice_use.csv
 
+parse_everything.py
+Description:
+Same as overall_summary.py but also outputs sms and phone calls like data_sms_phonecalls.py.
+Args:
+1. Device ids csv file
+2. Path of device files
+3. Greater50InstallsApps.csv
+Output files:
+1. everything/all_practice_data.csv
+2. everything/all_practice_rx.csv
+3. everything/all_practice_tx.csv
+4. everything/all_practice_use.csv
+5. everything/all_totals.csv
+6. everything/contribution.csv
+7. everything/practice_demand_contribution.csv
+8. everything/practice_use_contribution.csv
+9. everything/daily_practice_data.csv
+10. everything/daily_practice_use.csv
+11. everything/sms_summary.csv
+12. everything/phone_calls_summary.csv
+
 practice_data_demand.py
 Description:
 Outputs hourly totals of data demand per practice, i.e. totals of hourly app averages based on devices hourly app averages.
