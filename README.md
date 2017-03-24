@@ -40,6 +40,19 @@ Output files:
 16. use_out/practice_hourly_use_summaries_foreground.csv
 17. use_out/practice_hourly_use_summaries_other.csv
 
+day_of_week_totals.py:
+Description:
+Outputs the average daily totals of data demand for each day of the week, alongside weekdays and weekend average totals. Rx, tx and both outputted for each day, weekdays, and weekend. Contributions are also outputted for the number of devices which sent data, received data, and both sent and received data.
+Args:
+1. Device ids csv file
+2. Path of device files
+3. Greater50InstallsApps.csv
+Output files:
+1. day_totals_output/contribution.csv
+2. day_totals_output/days_of_week_demand_rx.csv
+3. day_totals_output/days_of_week_demand_tx.csv
+4. day_totals_output/days_of_week_demand_all.csv
+5. day_totals_output/weekday_weekend_demand.csv
 
 data_sms_phonecalls.py
 Description:
@@ -102,6 +115,16 @@ Output files:
 10. everything/daily_practice_use.csv
 11. everything/sms_summary.csv
 12. everything/phone_calls_summary.csv
+
+stats_summary.py
+Description:
+Outputs the daily average data demand for each user for each practice in bytes (user by practice table).
+Args:
+1. Device ids csv file
+2. Path of device files
+3. Greater50InstallsApps.csv
+Output files:
+1. stats/user_practices_stats.csv
 
 practice_data_demand.py
 Description:
