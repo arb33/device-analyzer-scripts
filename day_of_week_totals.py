@@ -209,7 +209,7 @@ def parse_file(file_path, lancs, fname):
         if entry_val[0] not in logs_to_parse or row_date == '(invalid date)':
             continue
 
-        if row_date[:-9] < start_date or row_date[:-9] > end_date:
+        if row_date[:-9] < start_date or row_date[:-9] >= end_date:
             continue
 
         if current_day != date_time[0]:
