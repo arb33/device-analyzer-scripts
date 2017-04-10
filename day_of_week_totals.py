@@ -27,6 +27,8 @@ import dateutil.parser
 from datetime import datetime, timedelta
 from functools import reduce
 
+global no_of_ignored_files
+
 global app_practice_mapping
 
 global all_demand_rx_contribution
@@ -108,40 +110,36 @@ def get_t_gap(first, second):
 def search_dates(file_path, lancs):
     start_date = None
     end_date = None
-    last_date_time_in_log = None
 
     for row in (read_file_lancs(file_path) if lancs else read_file(file_path)):
-        date_time = row.Date.rsplit('T')
-        if '(invalid date)' in row.Date:
+        date_time = row.Date
+        if '(invalid date)' in date_time:
             continue
 
         if start_date == None:
-            current_hour = int(date_time[1].split(':')[0])
-            if current_hour <= 4:
-                start_date = date_time[0]
-            else:
-                start_date = ((datetime.strptime(date_time[0], '%Y-%m-%d')) + timedelta(days=1)).strftime('%Y-%m-%d')
+            start_date = date_time
 
-        last_date_time_in_log = date_time
+        end_date = date_time
 
-    last_hour_in_log = int(last_date_time_in_log[1].split(':')[0])
-    if last_hour_in_log >= 4:
-        end_date = last_date_time_in_log[0]
-    else:
-        end_date = ((datetime.strptime(last_date_time_in_log[0], '%Y-%m-%d')) - timedelta(days=1)).strftime('%Y-%m-%d')
+    if start_date == None or end_date == None:
+        return None, None
 
-    return start_date+'T04:00:00', end_date+'T04:00:00'
+    return start_date[:-9], end_date[:-9]
 
 def get_start_end_dates(file_path, lancs):
     start = None
     end = None
     if lancs:
-        start = str(subprocess.check_output(['head', '-1', file_path])).split(';')[2][:-9]
-        end = str(subprocess.check_output(['tail', '-1', file_path])).split(';')[2][:-9]
-        if '(invalid date)' in start or '(invalid date)' in end:
-            start, end = search_dates()
+        # start = str(subprocess.check_output(['head', '-1', file_path])).split(';')[2][:-9]
+        # end = str(subprocess.check_output(['tail', '-1', file_path])).split(';')[2][:-9]
+        # if '(invalid date)' in start or '(invalid date)' in end:
+        start, end = search_dates(file_path, lancs)
     else:
         start, end = search_dates(file_path, lancs)
+
+    # If cannot find valid dates, return None to ignore this device in the analysis
+    if start == None or end == None:
+        return None, None
 
     start_date_time = datetime.strptime(start, '%Y-%m-%dT%H:%M:%S')
     end_date_time = datetime.strptime(end, '%Y-%m-%dT%H:%M:%S')
@@ -149,19 +147,25 @@ def get_start_end_dates(file_path, lancs):
     start_date_to_return = None
     end_date_to_return = None
     # If before 4am, then the date is fine - else add a day
-    if start_date_time.time().hour <= 4:
-        start_date_to_return = start_date_time.strftime('%Y-%m-%d')
+    if start_date_time.time().hour < 4:
+        start_date_to_return = start_date_time
     else:
-        start_date_to_return = (start_date_time + timedelta(days=1)).strftime('%Y-%m-%d')
+        start_date_to_return = (start_date_time + timedelta(days=1))
     # If after or equal to 4am, then the date is fine - else remove a day
     if end_date_time.time().hour >= 4:
-        end_date_to_return = end_date_time.strftime('%Y-%m-%d')
+        end_date_to_return = end_date_time
     else:
-        end_date_to_return = (end_date_time - timedelta(days=1)).strftime('%Y-%m-%d')
+        end_date_to_return = (end_date_time - timedelta(days=1))
 
-    return start_date_to_return+'T04:00:00', end_date_to_return+'T04:00:00'
+    # Check the start and end dates are at least 12 days apart - if not, return None to ignore this device in the analysis
+    difference = end_date_to_return.date() - start_date_to_return.date()
+    if difference.days < 14:
+        return None, None
 
-def parse_file(file_path, lancs, fname):
+    return (start_date_to_return.strftime('%Y-%m-%d'))+'T04:00:00', (end_date_to_return.strftime('%Y-%m-%d'))+'T04:00:00'
+
+def parse_file(file_path, lancs, fname, start_date, end_date):
+    global no_of_ignored_files
     global all_demand_rx_contribution
     global all_demand_tx_contribution
     global all_demand_contribution
@@ -173,8 +177,6 @@ def parse_file(file_path, lancs, fname):
     global overall_weekend_rx
     global overall_weekend_tx
     global overall_weekend
-
-    start_date, end_date = get_start_end_dates(file_path, lancs)
 
     logs_to_parse = ['app', 'screen', 'hf', 'net']
 
@@ -301,7 +303,7 @@ def parse_file(file_path, lancs, fname):
 
                     current_app_name_id_mapping[temp_name] = temp_app_id
 
-    if no_of_days != 0:
+    if (no_of_days != 0) and (no_of_days >= 14):
         for app, data in app_data.items():
 
             mean_rx = [[] for i in range(0,7)]
@@ -372,6 +374,9 @@ def parse_file(file_path, lancs, fname):
                 for i in range(0,24):
                     overall_weekday[i] = overall_weekday[i] + weekday_mean[i]
                     overall_weekend[i] = overall_weekend[i] + weekend_mean[i]
+    else:
+        no_of_ignored_files+=1
+        print('Not adding {0} to summary, as no. of actual data days: {1}'.format(file_path, no_of_days))
 
 def calculate_print_summaries():
     global data_rx_total
@@ -419,6 +424,7 @@ def calculate_print_summaries():
         f.write('weekend;{0}\n'.format(overall_weekend))
 
 if __name__ == '__main__':
+    global no_of_ignored_files
     global app_practice_mapping
 
     global all_demand_rx_contribution
@@ -439,6 +445,8 @@ if __name__ == '__main__':
     pathOfFiles = sys.argv[2]
     pathOfAppPracticeMapping = sys.argv[3]
     lancs = bool(len(sys.argv) > 4)
+
+    no_of_ignored_files = 0
 
     startTime = datetime.now()
 
@@ -469,10 +477,16 @@ if __name__ == '__main__':
         if not lancs:
             fullfpath = fullfpath + '.gz'
         print("Parsing file: " + fname)
-        parse_file(fullfpath, lancs, fname)
+        start_date, end_date = get_start_end_dates(fullfpath, lancs)
+        if start_date == None or end_date == None:
+            print("No start or end dates, or under 14 days of logging, for file: " + fname)
+            no_of_ignored_files+=1
+        else:
+            parse_file(fullfpath, lancs, fname, start_date, end_date)
 
     calculate_print_summaries()
 
     # **** For checking timings *****
     endFilesTime = datetime.now()
     print("All files summarised in {0}".format(str((endFilesTime - startTime))))
+    print("No. of ignored files: {0}".format(str(no_of_ignored_files)))
