@@ -306,43 +306,54 @@ def parse_file(file_path, lancs, fname, start_date, end_date):
     if (no_of_days != 0) and (no_of_days >= 14):
         for app, data in app_data.items():
 
-            mean_rx = [[] for i in range(0,7)]
-            mean_tx = [[] for i in range(0,7)]
+            mean_rx = [[0 for i in range(0,24)] for i in range(0,7)]
+            mean_tx = [[0 for i in range(0,24)] for i in range(0,7)]
 
             weekday_total_rx = [0 for i in range(0,24)]
             weekday_total_tx = [0 for i in range(0,24)]
             weekday_total = [0 for i in range(0,24)]
 
+            weekday_mean_rx = [0 for i in range(0,24)]
+            weekday_mean_tx = [0 for i in range(0,24)]
+            weekday_mean = [0 for i in range(0,24)]
+
             weekend_total_rx = [0 for i in range(0,24)]
             weekend_total_tx = [0 for i in range(0,24)]
             weekend_total = [0 for i in range(0,24)]
 
-            for index, no_of_days_of_day in enumerate(no_of_days_week):
-                mean_rx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[1][index]]
-                mean_tx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[3][index]]
+            weekend_mean_rx = [0 for i in range(0,24)]
+            weekend_mean_tx = [0 for i in range(0,24)]
+            weekend_mean = [0 for i in range(0,24)]
 
-                day_total_rx = [sum(ihour) for ihour in data[1][index]]
-                day_total_tx = [sum(ihour) for ihour in data[3][index]]
-                if index < 5:
-                    for hour in range(0,24):
-                        weekday_total_rx[hour] = weekday_total_rx[hour] + day_total_rx[hour]
-                        weekday_total_tx[hour] = weekday_total_tx[hour] + day_total_tx[hour]
-                        weekday_total[hour] = weekday_total[hour] + day_total_rx[hour] + day_total_tx[hour]
-                else:
-                    for hour in range(0,24):
-                        weekend_total_rx[hour] = weekend_total_rx[hour] + day_total_rx[hour]
-                        weekend_total_tx[hour] = weekend_total_tx[hour] + day_total_tx[hour]
-                        weekend_total[hour] = weekend_total[hour] + day_total_rx[hour] + day_total_tx[hour]
+            for index, no_of_days_of_day in enumerate(no_of_days_week):
+                if no_of_days_of_day != 0:
+                    mean_rx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[1][index]]
+                    mean_tx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[3][index]]
+
+                    day_total_rx = [sum(ihour) for ihour in data[1][index]]
+                    day_total_tx = [sum(ihour) for ihour in data[3][index]]
+                    if index < 5:
+                        for hour in range(0,24):
+                            weekday_total_rx[hour] = weekday_total_rx[hour] + day_total_rx[hour]
+                            weekday_total_tx[hour] = weekday_total_tx[hour] + day_total_tx[hour]
+                            weekday_total[hour] = weekday_total[hour] + day_total_rx[hour] + day_total_tx[hour]
+                    else:
+                        for hour in range(0,24):
+                            weekend_total_rx[hour] = weekend_total_rx[hour] + day_total_rx[hour]
+                            weekend_total_tx[hour] = weekend_total_tx[hour] + day_total_tx[hour]
+                            weekend_total[hour] = weekend_total[hour] + day_total_rx[hour] + day_total_tx[hour]
 
             no_of_weekday_days = sum(no_of_days_week[:5])
-            weekday_mean_rx = [ihour/no_of_weekday_days for ihour in weekday_total_rx]
-            weekday_mean_tx = [ihour/no_of_weekday_days for ihour in weekday_total_tx]
-            weekday_mean = [ihour/no_of_weekday_days for ihour in weekday_total]
+            if no_of_weekday_days != 0:
+                weekday_mean_rx = [ihour/no_of_weekday_days for ihour in weekday_total_rx]
+                weekday_mean_tx = [ihour/no_of_weekday_days for ihour in weekday_total_tx]
+                weekday_mean = [ihour/no_of_weekday_days for ihour in weekday_total]
 
             no_of_weekend_days = sum(no_of_days_week[5:7])
-            weekend_mean_rx = [ihour/no_of_weekend_days for ihour in weekend_total_rx]
-            weekend_mean_tx =[ihour/no_of_weekend_days for ihour in weekend_total_tx]
-            weekend_mean = [ihour/no_of_weekend_days for ihour in weekend_total]
+            if no_of_weekend_days != 0:
+                weekend_mean_rx = [ihour/no_of_weekend_days for ihour in weekend_total_rx]
+                weekend_mean_tx =[ihour/no_of_weekend_days for ihour in weekend_total_tx]
+                weekend_mean = [ihour/no_of_weekend_days for ihour in weekend_total]
 
             add_to_overall_total = False
 
