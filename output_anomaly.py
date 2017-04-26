@@ -29,23 +29,6 @@ from functools import reduce
 
 global no_of_ignored_files
 
-global app_practice_mapping
-
-global all_demand_rx_contribution
-global all_demand_tx_contribution
-global all_demand_contribution
-global all_demand_days_contribution
-
-global data_rx_total
-global data_tx_total
-
-global overall_weekday_rx
-global overall_weekday_tx
-global overall_weekday
-global overall_weekend_rx
-global overall_weekend_tx
-global overall_weekend
-
 fields_da = ('Entry','Num','Date','EntryType','Value')
 DARecord = namedtuple('DARecord', fields_da)
 def read_file(path):
@@ -89,14 +72,6 @@ def read_file_names_lancs(path):
         csv.field_size_limit(sys.maxsize)
         reader = csv.reader(data, delimiter='\n')
         for row in map(FileNameRecordLancs._make, reader):
-            yield row
-
-AppRecord = namedtuple('AppRecord', ('FullName', 'Name', 'Practice'))
-def read_app_mapping(path):
-    with open(path, 'rU') as data:
-        csv.field_size_limit(sys.maxsize)
-        reader = csv.reader(data, delimiter=';')
-        for row in map(AppRecord._make, reader):
             yield row
 
 def make_sure_path_exists(path):
@@ -167,18 +142,6 @@ def get_start_end_dates(file_path, lancs):
 
 def parse_file(file_path, lancs, fname, start_date, end_date):
     global no_of_ignored_files
-    global all_demand_rx_contribution
-    global all_demand_tx_contribution
-    global all_demand_contribution
-    global all_demand_days_contribution
-    global data_rx_total
-    global data_tx_total
-    global overall_weekday_rx
-    global overall_weekday_tx
-    global overall_weekday
-    global overall_weekend_rx
-    global overall_weekend_tx
-    global overall_weekend
 
     logs_to_parse = ['app', 'screen', 'hf', 'net']
 
@@ -306,192 +269,58 @@ def parse_file(file_path, lancs, fname, start_date, end_date):
                     current_app_name_id_mapping[temp_name] = temp_app_id
 
     if no_of_days >= 14:
+        saturday_total_rx = [0 for i in range(0,24)]
+        saturday_total_tx = [0 for i in range(0,24)]
+        saturday_total = [0 for i in range(0,24)]
+
+        index_of_saturday = 5
+        no_of_saturdays = no_of_days_week[index_of_saturday]
+        
         for app, data in app_data.items():
+            mean_rx = [0 for i in range(0,24)]
+            mean_tx = [0 for i in range(0,24)]
 
-            mean_rx = [[0 for i in range(0,24)] for i in range(0,7)]
-            mean_tx = [[0 for i in range(0,24)] for i in range(0,7)]
+            if no_of_saturdays != 0:
+                mean_rx = [(sum(ihour)/no_of_saturdays) for ihour in data[1][index_of_saturday]]
+                mean_tx = [(sum(ihour)/no_of_saturdays) for ihour in data[3][index_of_saturday]]
 
-            weekday_total_rx = [0 for i in range(0,24)]
-            weekday_total_tx = [0 for i in range(0,24)]
-            weekday_total = [0 for i in range(0,24)]
-
-            weekday_mean_rx = [0 for i in range(0,24)]
-            weekday_mean_tx = [0 for i in range(0,24)]
-            weekday_mean = [0 for i in range(0,24)]
-
-            weekend_total_rx = [0 for i in range(0,24)]
-            weekend_total_tx = [0 for i in range(0,24)]
-            weekend_total = [0 for i in range(0,24)]
-
-            weekend_mean_rx = [0 for i in range(0,24)]
-            weekend_mean_tx = [0 for i in range(0,24)]
-            weekend_mean = [0 for i in range(0,24)]
-
-            for index, no_of_days_of_day in enumerate(no_of_days_week):
-                if no_of_days_of_day != 0:
-                    mean_rx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[1][index]]
-                    mean_tx[index] = [(sum(ihour)/no_of_days_of_day) for ihour in data[3][index]]
-
-                    day_total_rx = [sum(ihour) for ihour in data[1][index]]
-                    day_total_tx = [sum(ihour) for ihour in data[3][index]]
-                    if index < 5:
-                        for hour in range(0,24):
-                            weekday_total_rx[hour] = weekday_total_rx[hour] + day_total_rx[hour]
-                            weekday_total_tx[hour] = weekday_total_tx[hour] + day_total_tx[hour]
-                            weekday_total[hour] = weekday_total[hour] + day_total_rx[hour] + day_total_tx[hour]
-                    else:
-                        for hour in range(0,24):
-                            weekend_total_rx[hour] = weekend_total_rx[hour] + day_total_rx[hour]
-                            weekend_total_tx[hour] = weekend_total_tx[hour] + day_total_tx[hour]
-                            weekend_total[hour] = weekend_total[hour] + day_total_rx[hour] + day_total_tx[hour]
-
-            no_of_weekday_days = sum(no_of_days_week[:5])
-            if no_of_weekday_days != 0:
-                weekday_mean_rx = [ihour/no_of_weekday_days for ihour in weekday_total_rx]
-                weekday_mean_tx = [ihour/no_of_weekday_days for ihour in weekday_total_tx]
-                weekday_mean = [ihour/no_of_weekday_days for ihour in weekday_total]
-
-            no_of_weekend_days = sum(no_of_days_week[5:7])
-            if no_of_weekend_days != 0:
-                weekend_mean_rx = [ihour/no_of_weekend_days for ihour in weekend_total_rx]
-                weekend_mean_tx =[ihour/no_of_weekend_days for ihour in weekend_total_tx]
-                weekend_mean = [ihour/no_of_weekend_days for ihour in weekend_total]
-
-            add_to_overall_total = False
-
-            if not all(hour == 0 for day in mean_rx for hour in day):
-                add_to_overall_total = True
-                for day in range(0,7):
-                    if not all(hour == 0 for hour in mean_rx[day]):
-                        all_demand_days_contribution[day].add(fname)
+                if not all(hour == 0 for hour in mean_rx):
                     for hour in range(0,24):
-                        data_rx_total[day][hour] = data_rx_total[day][hour] + mean_rx[day][hour]
-                all_demand_rx_contribution.add(fname)
-                all_demand_contribution.add(fname)
-                # Weekday and weekend rx
-                for i in range(0,24):
-                    overall_weekday_rx[i] = overall_weekday_rx[i] + weekday_mean_rx[i]
-                    overall_weekend_rx[i] = overall_weekend_rx[i] + weekend_mean_rx[i]
-
-            if not all(hour == 0 for day in mean_tx for hour in day):
-                add_to_overall_total = True
-                for day in range(0,7):
-                    if not all(hour == 0 for hour in mean_tx[day]):
-                        all_demand_days_contribution[day].add(fname)
+                        saturday_total_rx[hour] = saturday_total_rx[hour] + mean_rx[hour]
+                if not all(hour == 0 for hour in mean_tx):
                     for hour in range(0,24):
-                        data_tx_total[day][hour] = data_tx_total[day][hour] + mean_tx[day][hour]
-                all_demand_tx_contribution.add(fname)
-                all_demand_contribution.add(fname)
-                # Weekday and weekend tx
-                for i in range(0,24):
-                    overall_weekday_tx[i] = overall_weekday_tx[i] + weekday_mean_tx[i]
-                    overall_weekend_tx[i] = overall_weekend_tx[i] + weekend_mean_tx[i]
+                        saturday_total_tx[hour] = saturday_total_tx[hour] + mean_tx[hour]
+        with open('anomaly_output/saturday_totals.csv', 'a') as f:
+            f.write(fname)
+            for hour in range(0,24):
+                saturday_total[hour] = saturday_total_rx[hour] + saturday_total_tx[hour]
+                f.write(',{0}'.format(str(saturday_total[hour])))
+            f.write('\n')
 
-            if add_to_overall_total is True:
-                for i in range(0,24):
-                    overall_weekday[i] = overall_weekday[i] + weekday_mean[i]
-                    overall_weekend[i] = overall_weekend[i] + weekend_mean[i]
     else:
         no_of_ignored_files+=1
         print('Not adding {0} to summary, as no. of actual data days: {1}'.format(file_path, no_of_days))
 
-def calculate_print_summaries():
-    global data_rx_total
-    global data_tx_total
-    global all_demand_rx_contribution
-    global all_demand_tx_contribution
-    global all_demand_contribution
-    global all_demand_days_contribution
-    global overall_weekday_rx
-    global overall_weekday_tx
-    global overall_weekday
-    global overall_weekend_rx
-    global overall_weekend_tx
-    global overall_weekend
-
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-    with open('day_totals_output/contribution.csv', 'w') as f:
-        f.write('demand rx,{0}\n'.format(len(all_demand_rx_contribution)))
-        f.write('demand tx,{0}\n'.format(len(all_demand_tx_contribution)))
-        f.write('demand rx and tx,{0}\n'.format(len(all_demand_contribution)))
-        for day_in_week in range(0,7):
-            f.write('demand {0},{1}\n'.format(days_of_week[day_in_week], len(all_demand_days_contribution[day_in_week])))
-
-    data_total = [[0 for i in range(0,24)] for day in range(0,7)]
-    for day in range(0,7):
-        for hour in range(0,24):
-            data_total[day][hour] = data_rx_total[day][hour] + data_tx_total[day][hour]
-    
-    with open('day_totals_output/days_of_week_demand_rx.csv', 'w') as f:
-        for index, day in enumerate(days_of_week):
-            f.write('{0};{1}\n'.format(day, data_rx_total[index]))
-
-    with open('day_totals_output/days_of_week_demand_tx.csv', 'w') as f:
-        for index, day in enumerate(days_of_week):
-            f.write('{0};{1}\n'.format(day, data_tx_total[index]))
-
-    with open('day_totals_output/days_of_week_demand_all.csv', 'w') as f:
-        for index, day in enumerate(days_of_week):
-            f.write('{0};{1}\n'.format(day, data_total[index]))
-
-    with open('day_totals_output/weekday_weekend_demand.csv', 'w') as f:
-        f.write('weekday rx;{0}\n'.format(overall_weekday_rx))
-        f.write('weekday tx;{0}\n'.format(overall_weekday_tx))
-        f.write('weekday;{0}\n'.format(overall_weekday))
-        f.write('weekend rx;{0}\n'.format(overall_weekend_rx))
-        f.write('weekend tx;{0}\n'.format(overall_weekend_tx))
-        f.write('weekend;{0}\n'.format(overall_weekend))
 
 if __name__ == '__main__':
     global no_of_ignored_files
-    global app_practice_mapping
-
-    global all_demand_rx_contribution
-    global all_demand_tx_contribution
-    global all_demand_contribution
-    global all_demand_days_contribution
-
-    global data_rx_total
-    global data_tx_total
-
-    global overall_weekday_rx
-    global overall_weekday_tx
-    global overall_weekday
-    global overall_weekend_rx
-    global overall_weekend_tx
-    global overall_weekend
 
     pathOfIdsFile = sys.argv[1]
     pathOfFiles = sys.argv[2]
-    pathOfAppPracticeMapping = sys.argv[3]
-    lancs = bool(len(sys.argv) > 4)
+    lancs = bool(len(sys.argv) > 3)
 
     no_of_ignored_files = 0
 
     startTime = datetime.now()
 
-    data_rx_total = [[0 for i in range(0,24)] for day in range(0,7)]
-    data_tx_total = [[0 for i in range(0,24)] for day in range(0,7)]
-
-    overall_weekday_rx = [0 for i in range(0,24)]
-    overall_weekday_tx = [0 for i in range(0,24)]
-    overall_weekday = [0 for i in range(0,24)]
-    overall_weekend_rx = [0 for i in range(0,24)]
-    overall_weekend_tx = [0 for i in range(0,24)]
-    overall_weekend = [0 for i in range(0,24)]
-
-    all_demand_rx_contribution = set()
-    all_demand_tx_contribution = set()
-    all_demand_contribution = set()
-    all_demand_days_contribution = [set() for i in range(0,7)]
-
-    app_practice_mapping = {}
-    for app in read_app_mapping(pathOfAppPracticeMapping):
-        app_practice_mapping[app.FullName] = app.Practice
-
     # Make sure 'out/' folder exists and reset/create output files
-    make_sure_path_exists('day_totals_output/')
+    make_sure_path_exists('anomaly_output/')
+
+    with open('anomaly_output/saturday_totals.csv', 'w') as f:
+        f.write('hour')
+        for hour in range(0,24):
+            f.write(',{0}'.format(str(hour)))
+        f.write('\n')
 
     for file in (read_file_names_lancs(pathOfIdsFile) if lancs else read_file_names(pathOfIdsFile)):
         fname = file.FileName
@@ -505,8 +334,6 @@ if __name__ == '__main__':
             no_of_ignored_files+=1
         else:
             parse_file(fullfpath, lancs, fname, start_date, end_date)
-
-    calculate_print_summaries()
 
     # **** For checking timings *****
     endFilesTime = datetime.now()
