@@ -72,6 +72,14 @@ Output files:
 8. out/app_hourly_maxs.csv
 9. out/app_hourly_meds.csv
 
+output_anomaly.py
+Description:
+Outputs hourly data demand on Saturdays for each participant (app data demand on Saturdays averaged, and then summed per device). Used to try and find the anomalous data on Saturday morning at 8am.
+Args:
+1. Device ids csv file
+2. Path of device files
+Output files:
+1. anomaly_output/saturday_totals.csv
 
 overall_summary.py
 Description:
